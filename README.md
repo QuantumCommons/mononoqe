@@ -2,4 +2,4 @@
 
 # Mononoqe
 
-`mononqe` is a simple python library to mix Neural Network and Quantum computing.
+`mononoqe` is a simple python library to mix Neural Network and Quantum computing.
