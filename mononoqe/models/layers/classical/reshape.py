@@ -14,7 +14,7 @@
 
 from torch.nn import Module
 
-from qml.models.layers.utils import register
+from mononoqe.models.layers.utils import register
 
 
 class Reshape(Module):

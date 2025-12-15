@@ -20,9 +20,9 @@ import torch
 from torch.nn import Sequential
 from typing import List, Dict, Tuple, Optional, Union
 
-from qml.models.layers.utils import build_topology_from_list
-from qml.models.topologies.register import factory
-from qml.utils import make_tuple
+from mononoqe.models.layers.utils import build_topology_from_list
+from mononoqe.models.topologies.register import factory
+from mononoqe.utils import make_tuple
 
 
 @dataclass_json

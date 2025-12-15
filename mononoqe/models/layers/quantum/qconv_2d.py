@@ -17,11 +17,11 @@ import torch
 from torch.nn import Module
 from typing import Union, Tuple
 
-from qml.utils import make_2d_tuple
-from qml.models.layers.utils import register
-from qml.models.layers.quantum.ansatz import build_ansatz
-from qml.models.layers.quantum.feature_maps import build_feature_map
-from qml.models.layers.quantum.slos import QuantumLayer, OutputMappingStrategy
+from mononoqe.utils import make_2d_tuple
+from mononoqe.models.layers.utils import register
+from mononoqe.models.layers.quantum.ansatz import build_ansatz
+from mononoqe.models.layers.quantum.feature_maps import build_feature_map
+from mononoqe.models.layers.quantum.slos import QuantumLayer, OutputMappingStrategy
 
 # from joblib import Parallel, delayed
 

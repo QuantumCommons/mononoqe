@@ -16,8 +16,8 @@ import perceval as pcvl
 import torch
 from typing import Tuple
 
-from qml.models.layers.quantum.feature_maps.register import register
-from qml.models.layers.quantum.feature_maps.feature_map_params import FeatureMapParams
+from mononoqe.models.layers.quantum.feature_maps.register import register
+from mononoqe.models.layers.quantum.feature_maps.feature_map_params import FeatureMapParams
 
 
 @register

@@ -17,10 +17,10 @@ from pytorch_lightning.callbacks import Callback
 from pytorch_lightning.loggers import TensorBoardLogger
 import shutil
 
-from qml.data import TrainingData
-from qml.models import Net
-from qml.models.topologies import TopologyParams
-from qml.training import TrainingParams
+from mononoqe.data import TrainingData
+from mononoqe.models import Net
+from mononoqe.models.topologies import TopologyParams
+from mononoqe.training import TrainingParams
 
 
 _TENSORBOARD_DIRECTORY = "tb_logs"

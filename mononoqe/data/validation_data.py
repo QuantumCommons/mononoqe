@@ -16,7 +16,7 @@ from dataclasses import dataclass
 from torch import Generator
 from torch.utils.data import DataLoader
 
-from qml.data.dataset import (
+from mononoqe.data.dataset import (
     get_validation_mnist_classification_dataset,
     get_validation_mnist_mirror_dataset,
 )

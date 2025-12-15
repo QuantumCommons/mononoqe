@@ -17,21 +17,21 @@ from torch.nn import Module, Parameter
 from torch.autograd import Function
 from typing import Optional, Tuple
 
-from qml.models.layers.utils import register
-from qml.models.layers.quantum.ansatz import (
+from mononoqe.models.layers.utils import register
+from mononoqe.models.layers.quantum.ansatz import (
     build_ansatz,
     predict_size_ansatz,
     build_weights,
 )
-from qml.models.layers.quantum.feature_maps import (
+from mononoqe.models.layers.quantum.feature_maps import (
     build_feature_map,
     predict_size_feature_map,
     FeatureMapParams,
 )
-from qml.models.layers.quantum.runners import build_runner
-from qml.models.layers.quantum.post_selecters import build_post_select
-from qml.models.layers.quantum.gradients import build_gradient_method
-from qml.models.layers.quantum.converters import build_converter, predict_size_converter
+from mononoqe.models.layers.quantum.runners import build_runner
+from mononoqe.models.layers.quantum.post_selecters import build_post_select
+from mononoqe.models.layers.quantum.gradients import build_gradient_method
+from mononoqe.models.layers.quantum.converters import build_converter, predict_size_converter
 
 
 class _ComputeFwAndBw(Function):

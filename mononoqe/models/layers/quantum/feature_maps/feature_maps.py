@@ -15,8 +15,8 @@
 import torch
 from typing import Tuple
 
-from qml.models.layers.quantum.feature_maps.register import feature_maps_factory
-from qml.models.layers.quantum.feature_maps.feature_map_params import FeatureMapParams
+from mononoqe.models.layers.quantum.feature_maps.register import feature_maps_factory
+from mononoqe.models.layers.quantum.feature_maps.feature_map_params import FeatureMapParams
 
 
 def build_feature_map(name: str, x: torch.Tensor) -> FeatureMapParams:

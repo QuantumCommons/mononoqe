@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from qml.utils import Factory
+from mononoqe.utils import Factory
 
 
 __FACTORY = Factory("converters")

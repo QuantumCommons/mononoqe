@@ -15,8 +15,8 @@
 import torch
 import pytorch_lightning as pl
 
-from qml.data import ValidationData
-from qml.models import Net
+from mononoqe.data import ValidationData
+from mononoqe.models import Net
 
 
 class Validator:

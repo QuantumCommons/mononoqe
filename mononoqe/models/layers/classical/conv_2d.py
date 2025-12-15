@@ -17,8 +17,8 @@ import torch
 from torch.nn import Module
 from typing import Union
 
-from qml.utils import make_2d_tuple
-from qml.models.layers.utils import register
+from mononoqe.utils import make_2d_tuple
+from mononoqe.models.layers.utils import register
 
 
 @register

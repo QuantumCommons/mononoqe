@@ -14,7 +14,7 @@
 
 import torch
 
-from qml.training.losses.register import register, factory
+from mononoqe.training.losses.register import register, factory
 
 MAE_LOSS = "l1"
 SMOOTH_L1_LOSS = "smooth_l1"

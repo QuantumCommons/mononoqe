@@ -14,7 +14,7 @@
 
 import torch
 
-from qml.training.optimizers.register import register, factory
+from mononoqe.training.optimizers.register import register, factory
 
 # Here a list of already implemented optimizers
 # https://github.com/huggingface/pytorch-image-models/tree/main/timm/optim

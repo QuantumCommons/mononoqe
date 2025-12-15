@@ -15,7 +15,7 @@
 import functools
 import sympy as sp
 import torch
-from typing import Any, Callable, TypeVar, Union, Dict, Tuple, List
+from typing import Any, Callable, TypeVar, Union, Tuple, List
 
 
 T = TypeVar("T")

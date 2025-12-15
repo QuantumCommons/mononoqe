@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from qml.models.layers.quantum.gradients.register import factory
+from mononoqe.models.layers.quantum.gradients.register import factory
 
 
 def build_gradient_method(name: str):

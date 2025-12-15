@@ -18,13 +18,13 @@ import perceval as pcvl
 import torch
 from typing import Tuple
 
-from qml.models.layers.quantum.converters.utils import (
+from mononoqe.models.layers.quantum.converters.utils import (
     thresholded_size,
     pnr_size,
     generate_states,
     generate_states_multi_photons,
 )
-from qml.models.layers.quantum.converters.register import register, converter_factory
+from mononoqe.models.layers.quantum.converters.register import register, converter_factory
 
 
 def build_converter(name: str, **kwargs):

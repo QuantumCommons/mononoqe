@@ -14,7 +14,7 @@
 
 from functools import lru_cache
 
-from qml.models.layers.quantum.post_selecters.register import register, factory
+from mononoqe.models.layers.quantum.post_selecters.register import register, factory
 
 
 def build_post_select(name: str, nb_modes: int):

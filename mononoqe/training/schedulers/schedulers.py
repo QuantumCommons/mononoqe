@@ -15,7 +15,7 @@
 import timm.scheduler as sch
 import torch
 
-from qml.training.schedulers.register import register, factory
+from mononoqe.training.schedulers.register import register, factory
 
 # Here a list of already implemented scheduler:
 # https://github.com/huggingface/pytorch-image-models/tree/main/timm/scheduler

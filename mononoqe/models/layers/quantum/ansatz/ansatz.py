@@ -16,7 +16,7 @@ import perceval as pcvl
 import torch
 from typing import Tuple
 
-from qml.models.layers.quantum.ansatz.register import ansatz_factory
+from mononoqe.models.layers.quantum.ansatz.register import ansatz_factory
 
 
 def build_ansatz(name: str, x: torch.Tensor, weights: torch.Tensor) -> pcvl.Circuit:

@@ -14,7 +14,7 @@
 
 from torch.nn import Module
 
-from qml.models.layers.utils import build_topology_from_list, predict_size, register
+from mononoqe.models.layers.utils import build_topology_from_list, predict_size, register
 
 
 class Repeat(Module):

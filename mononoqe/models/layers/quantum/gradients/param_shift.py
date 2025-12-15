@@ -14,7 +14,7 @@
 
 import torch
 
-from qml.models.layers.quantum.gradients.register import register
+from mononoqe.models.layers.quantum.gradients.register import register
 
 
 @register("param_shift")

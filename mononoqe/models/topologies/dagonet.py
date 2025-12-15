@@ -15,8 +15,8 @@
 import torch
 from typing import List
 
-import qml.models.layers as layers
-from qml.models.topologies.register import register
+from mononoqe.models.layers as layers
+from mononoqe.models.topologies.register import register
 
 
 @register("dagonet")

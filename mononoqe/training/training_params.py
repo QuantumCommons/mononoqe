@@ -15,9 +15,9 @@
 from dataclasses import dataclass
 from typing import Dict
 
-from qml.training.optimizers import build_optimizer
-from qml.training.losses import build_loss
-from qml.training.schedulers import build_scheduler
+from mononoqe.training.optimizers import build_optimizer
+from mononoqe.training.losses import build_loss
+from mononoqe.training.schedulers import build_scheduler
 
 
 @dataclass

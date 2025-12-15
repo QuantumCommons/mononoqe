@@ -18,8 +18,8 @@ import torch
 import pytorch_lightning as pl
 from typing import Union
 
-from qml.models.topologies import TopologyParams, Topology, build_topology
-from qml.utils.insights import confusion_matrix_to_file
+from mononoqe.models.topologies import TopologyParams, Topology, build_topology
+from mononoqe.utils.insights import confusion_matrix_to_file
 
 
 class Net(abc.ABC, pl.LightningModule):

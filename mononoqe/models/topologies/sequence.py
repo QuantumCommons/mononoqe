@@ -17,9 +17,9 @@ from torch.nn import Module
 from typing import List, Optional
 import uuid
 
-from qml.models.topologies.topology import Topology, TopologyParams
-from qml.models.layers.utils import build_topology_from_list, predict_size, register
-from qml.utils import make_tuple
+from mononoqe.models.topologies.topology import Topology, TopologyParams
+from mononoqe.models.layers.utils import build_topology_from_list, predict_size, register
+from mononoqe.utils import make_tuple
 
 
 class Sequence(Module):

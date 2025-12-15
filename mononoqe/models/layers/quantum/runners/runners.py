@@ -16,8 +16,8 @@ import abc
 import perceval as pcvl
 from typing import Optional
 
-from qml.models.layers.quantum.runners.register import register, runner_factory
-from qml.models.layers.quantum.runners.utils import build_session
+from mononoqe.models.layers.quantum.runners.register import register, runner_factory
+from mononoqe.models.layers.quantum.runners.utils import build_session
 
 
 def build_runner(name: str, **kwargs):

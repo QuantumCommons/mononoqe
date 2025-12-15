@@ -16,7 +16,7 @@ import perceval as pcvl
 import torch
 from typing import Tuple
 
-from qml.models.layers.quantum.ansatz.register import register
+from mononoqe.models.layers.quantum.ansatz.register import register
 
 
 @register

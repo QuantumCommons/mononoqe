@@ -18,9 +18,9 @@ import torch
 from torch.nn import Module
 from typing import Iterable, Optional
 
-from qml.models.layers.quantum.converters import build_converter
-from qml.models.layers.quantum.runners.utils import build_session
-from qml.models.layers.utils import register
+from mononoqe.models.layers.quantum.converters import build_converter
+from mononoqe.models.layers.quantum.runners.utils import build_session
+from mononoqe.models.layers.utils import register
 
 
 class BosonSampling(Module):

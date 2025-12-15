@@ -15,7 +15,7 @@
 import torch
 from torch.nn import Module
 
-from qml.models.layers.utils import register
+from mononoqe.models.layers.utils import register
 
 
 def fourier_features_2d(x: torch.Tensor, weight: torch.Tensor):

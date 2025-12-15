@@ -110,6 +110,16 @@ def get_validation_mnist_classification_dataset():
     return validation_dataset, _MNIST_IMAGE_SHAPE, _MNIST_CLASSES_SHAPE
 
 
+def get_full_validation_mnist_classification_dataset():
+    from torchvision.datasets import MNIST
+    from torchvision.transforms import ToTensor
+    validation_dataset = MNIST(
+        root="./resources/mnist_full", download=True, train=False, transform=ToTensor()
+    )
+
+    return validation_dataset, _MNIST_IMAGE_SHAPE, _MNIST_CLASSES_SHAPE
+
+
 def get_validation_mnist_mirror_dataset():
     validation_dataset = LocalMirrorMnistDataset(
         path="./resources/mnist_partial/val.csv"

@@ -15,9 +15,11 @@
 from dataclasses import dataclass
 from torch import Generator
 from torch.utils.data import DataLoader
+from typing import Literal
 
-from qml.data.dataset import (
+from mononoqe.data.dataset import (
     get_validation_mnist_classification_dataset,
+    get_full_validation_mnist_classification_dataset,
     get_validation_mnist_mirror_dataset,
     get_partial_mnist_classification_dataset,
     get_full_mnist_classification_dataset,
@@ -28,20 +30,20 @@ from qml.data.dataset import (
 @dataclass
 class TrainingData:
     batch_size: int
-    name: bool
+    name: Literal["partial, full, mirror"] = "full"
     device: str = None
 
     def build_loaders(self):
         mapping = {
-            "mnist_partial_classification": (
+            "partial": (
                 get_partial_mnist_classification_dataset,
                 get_validation_mnist_classification_dataset,
             ),
-            "mnist_full_classification": (
+            "full": (
                 get_full_mnist_classification_dataset,
-                get_validation_mnist_classification_dataset,
+                get_full_validation_mnist_classification_dataset,
             ),
-            "mnist_partial_mirror": (
+            "mirror": (
                 get_partial_mnist_mirror_dataset,
                 get_validation_mnist_mirror_dataset,
             ),

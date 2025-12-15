@@ -15,7 +15,7 @@
 from torch.nn import Sequential
 from typing import Tuple, List
 
-from qml.utils import Factory, make_tuple
+from mononoqe.utils import Factory, make_tuple
 
 
 __FACTORY = Factory("layers")
