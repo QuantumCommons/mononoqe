@@ -1,13 +1,24 @@
-import torch
+# Copyright 2025 Scaleway
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 import math
-
+import torch
 from torch.nn import Module
-
 from typing import Union, Tuple
 
 from qml.utils import make_2d_tuple
 from qml.models.layers.utils import register
-
 from qml.models.layers.quantum.ansatz import build_ansatz
 from qml.models.layers.quantum.feature_maps import build_feature_map
 from qml.models.layers.quantum.slos import QuantumLayer, OutputMappingStrategy
