@@ -98,7 +98,7 @@ def get_full_mnist_classification_dataset():
     from torchvision.transforms import ToTensor
 
     training_dataset = MNIST(
-        root="./resources/mnist_full", download=True, transform=ToTensor()
+        root="./resources/mnist_full", download=True, train=True, transform=ToTensor()
     )
 
     return training_dataset, _MNIST_IMAGE_SHAPE, _MNIST_CLASSES_SHAPE

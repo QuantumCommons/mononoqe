@@ -15,7 +15,7 @@
 import os
 import perceval as pcvl
 import perceval.providers.scaleway as scw
-from perceval.providers.scaleway.scaleway_session import _ENDPOINT_URL
+from perceval.providers.scaleway.scaleway_rpc_handler import _DEFAULT_URL
 
 
 def build_session(name: str, platform: str) -> pcvl.ISession:
@@ -24,7 +24,7 @@ def build_session(name: str, platform: str) -> pcvl.ISession:
         platform=platform,
         project_id=os.environ["SCW_PROJECT_ID"],
         token=os.environ["SCW_SECRET_KEY"],
-        url=os.environ.get("SCW_API_GATEWAY", _ENDPOINT_URL),
+        url=os.environ.get("SCW_API_GATEWAY", _DEFAULT_URL),
     )
 
     return session

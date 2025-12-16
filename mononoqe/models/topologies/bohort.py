@@ -15,7 +15,7 @@
 import torch
 from typing import List
 
-from mononoqe.models.layers as layers
+import mononoqe.models.layers as layers
 from mononoqe.models.topologies.register import register
 from mononoqe.models.topologies.sequence import topology
 
