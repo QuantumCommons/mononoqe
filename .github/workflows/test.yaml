@@ -30,7 +30,7 @@ jobs:
       run: python -m build
 
     - name: Install package
-      run: pip install dist/yardstiq_compass-${version}-py3-none-any.whl
+      run: pip install dist/mononoqe-${version}-py3-none-any.whl
 
     - name: Install test
       run: pip install -r tests/requirements.txt
