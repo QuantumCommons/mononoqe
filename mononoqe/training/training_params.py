@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Dict
 
 from mononoqe.training.optimizers import build_optimizer
@@ -24,9 +24,9 @@ from mononoqe.training.schedulers import build_scheduler
 class TrainingParams:
     loss_name: str
     optimizer_name: str
-    scheduler_name: str
-    epochs: int
-    learning_rate: float
+    learning_rate: float = field(default=3e-4)
+    scheduler_name: str = field(default=None)
+    epochs: int = field(default=5)
 
     def build_minimizers(self, model_parameters: Dict):
         loss = build_loss(self.loss_name)

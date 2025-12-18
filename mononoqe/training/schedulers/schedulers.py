@@ -13,7 +13,6 @@
 # limitations under the License.
 
 import timm.scheduler as sch
-import torch
 
 from mononoqe.training.schedulers.register import register, factory
 

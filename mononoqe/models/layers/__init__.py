@@ -91,7 +91,7 @@ pca = PCABuilder.elem
 
 
 ### Tools
-def duplicate(sequence: list, duplication: int) -> dict:
+def duplicate(sequence: list, duplication: int) -> list:
     assert int(duplication)
 
     duplications = []
