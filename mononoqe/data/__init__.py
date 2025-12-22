@@ -12,5 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .mnist.training_data import TrainingData
-from .mnist.validation_data import ValidationData
+from .dataset import Data
+# from .mnist.training_data import TrainingData
+# from .mnist.validation_data import ValidationData

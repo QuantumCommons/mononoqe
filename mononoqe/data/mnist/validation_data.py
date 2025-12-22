@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from warnings import deprecated
 from dataclasses import dataclass
 from torch import Generator
 from torch.utils.data import DataLoader
@@ -22,6 +23,7 @@ from mononoqe.data.dataset import (
 )
 
 
+@deprecated("This dataset is the original mononoqe implementation that was sepcifically designed for the MNIST dataset. The new Data object is under development to superseed it.")
 @dataclass
 class ValidationData:
     batch_size: int

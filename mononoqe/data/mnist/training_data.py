@@ -12,12 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from warnings import deprecated
 from dataclasses import dataclass
 from torch import Generator
 from torch.utils.data import DataLoader
 from typing import Literal
 
-from mononoqe.data.dataset import (
+from mononoqe.data.mnist.dataset import (
     get_validation_mnist_classification_dataset,
     get_full_validation_mnist_classification_dataset,
     get_validation_mnist_mirror_dataset,
@@ -26,7 +27,7 @@ from mononoqe.data.dataset import (
     get_partial_mnist_mirror_dataset,
 )
 
-
+@deprecated("This dataset is the original mononoqe implementation that was sepcifically designed for the MNIST dataset. The new Data object is under development to superseed it.")
 @dataclass
 class TrainingData:
     batch_size: int
