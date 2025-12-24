@@ -12,4 +12,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .dataset import Data
+raise NotImplementedError("This file shall implement a GAN as a demonstrator of Mononoqe's usage (generative, interleaved loss function training).")

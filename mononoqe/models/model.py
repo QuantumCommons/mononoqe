@@ -12,43 +12,127 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import abc
-from typing import Union
+import os
+
+import torch
 import pytorch_lightning as pl
 
-from mononoqe.models.topologies.topology import Topology, TopologyParams, build_topology
+from mononoqe.models.topologies import Topology
 
-
-# class Net(abc.ABC, pl.LightningModule):
-
-#     def __init__(self, *args, **kwargs):
-#         super().__init__(*args, **kwargs)
-
-#     @abc.abstractmethod
-#     def configure_training(self, training_params):
-#         pass
-
-#     @abc.abstractmethod
-#     def configure_topology(self, topology):
-#         pass
 
 class Net(pl.LightningModule):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-    # @abc.abstractmethod
-    # def configure_training(self, training_params):
-    #     pass
+        raise NotImplementedError("Misses attributes init, as well as minimizer's build method.")
 
-    def configure_topology(self, topology: Union[TopologyParams, Topology]):
-        if isinstance(topology, TopologyParams):
-            self.__topology = build_topology(topology)
-            assert self.__topology is not None
-        elif isinstance(topology, Topology):
-            self.__topology = topology
-            assert self.__topology.sequence_modules
-        else:
-            raise Exception("Uncompatible type for topology :", type(topology))
+        self.__loss = None
+        self.__accuracy = None
+        self.__topology = None
+        self.__sequence = None
 
-        self.__sequence = self.__topology.sequence_modules
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        return self.__sequence(x)
+
+    def training_step(self, batch: torch.Tensor, batch_idx) -> torch.Tensor:
+        x, y_ref = batch
+
+        y_pred = self.forward(x)
+
+        loss = self.__loss(y_pred, y_ref)
+        accuracy = self.__accuracy(y_pred, y_ref)
+
+        self.log(
+            "train_accuracy",
+            accuracy,
+            on_step=True,
+            on_epoch=False,
+            prog_bar=True,
+            logger=True,
+        )
+        self.log(
+            "train_loss", loss, on_step=True, on_epoch=False, prog_bar=True, logger=True
+        )
+
+        return loss
+
+    def validation_step(self, batch: torch.Tensor, batch_idx):
+        x, y_ref = batch
+
+        y_pred = self.forward(x)
+        accuracy = self.__accuracy(y_pred, y_ref)
+
+        self.log(
+            "val_accuracy",
+            accuracy,
+            on_step=False,
+            on_epoch=True,
+            prog_bar=True,
+            logger=True,
+        )
+
+        # Can be None in inference mode
+        if self.__loss:
+            loss = self.__loss(y_pred, y_ref)
+            self.log(
+                "val_loss",
+                loss,
+                on_step=True,
+                on_epoch=True,
+                prog_bar=True,
+                logger=True,
+            )
+
+            return loss
+
+        return accuracy
+
+    ### Used by pytorch_lightning
+    def configure_optimizers(self):
+        if not self.__training_params:
+            return None
+
+        # need to pass model.parameters() to create optimizer object
+        loss, optimizer, scheduler = self.__training_params.build_minimizers(
+            self.parameters()
+        )
+
+        self.__loss = loss
+
+        if not scheduler:
+            return optimizer
+
+        return [optimizer], [scheduler]
+    ###
+
+    #### Used by pytorch_lightning
+    def lr_scheduler_step(self, scheduler, metric):
+        scheduler.step(epoch=self.current_epoch)
+    ###
+
+    def save(self, path: str):
+        from pathlib import Path
+
+        print("Saving model at", path)
+
+        Path(path).mkdir(parents=True, exist_ok=True)
+
+        self.__topology.save(path)
+
+    @staticmethod
+    def load(path: str) -> "Net":
+        print("Loading model from", path)
+
+        if not os.path.exists(path):
+            raise Exception(path, "doesn't exist")
+
+        if not os.path.isdir(path):
+            raise Exception(path, "must be a directory")
+
+        topology = Topology.load(path)
+
+        model = Net()
+        model.configure_topology(topology)
+
+        return model

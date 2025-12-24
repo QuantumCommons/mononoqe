@@ -12,4 +12,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .dataset import Data
+from .utils import predict_size, build_topology_from_list, register, layers_factory

@@ -12,4 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .dataset import Data
+from abc import ABC, abstractmethod
+from mononoqe.models.layers.builder import Builder
+
+
+class Layer(ABC):
+
+    @property
+    def builder() -> Builder:
+        pass

@@ -12,4 +12,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .dataset import Data
+raise NotImplementedError("This file shall implement a Variational Autoencoder (VAE) as a demonstrator of Mononoqe's usage (Generative, mid-architecture loss using KL divergence along with a reconstruction loss).")

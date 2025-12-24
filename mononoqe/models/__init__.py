@@ -13,4 +13,3 @@
 # limitations under the License.
 
 from .model import Net
-from .mnist_model import MnistNet

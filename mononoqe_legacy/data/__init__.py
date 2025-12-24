@@ -13,3 +13,6 @@
 # limitations under the License.
 
 from .dataset import Data
+
+# from .mnist.training_data import TrainingData
+# from .mnist.validation_data import ValidationData
