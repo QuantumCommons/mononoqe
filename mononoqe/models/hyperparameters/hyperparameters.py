@@ -14,34 +14,41 @@
 
 from dataclasses import dataclass, field
 from dataclasses_json import dataclass_json
-from typing import Iterator
+from typing import Callable, Iterator, Optional, Union
 
 import torch
 
-from mononoqe.models.hyperparameters.losses import *
+from mononoqe.models.hyperparameters import build_loss, build_optimizer, build_scheduler
 
 
 @dataclass_json
 @dataclass
 class Hyperparameters:
-    loss_name: str
-    optimizer_name: str
-    scheduler_name: str = field(default=None)
-    learning_rate: float = field(default=3e-4)
+    loss: Union[str, Callable]
+    optimizer: Union[str, torch.optim.Optimizer]
+    scheduler: Union[str, torch.optim.lr_scheduler.LRScheduler] = field(default=None)
+    learning_rate: float = field(default=3e-4)  # Karpathy constant
     epochs: int = field(default=5)
 
-    def build_minimizers(self, parameters: Iterator[torch.nn.Parameter]):
-        loss = build_loss(self.loss_name)
+    def build_minimizers(self, parameters: Iterator[torch.nn.Parameter]) -> tuple[Callable[[torch.Tensor, torch.Tensor, Optional[dict]], torch.Tensor], torch.optim.Optimizer, torch.optim.lr_scheduler.LRScheduler]:
 
-        optimizer = build_optimizer(
-            self.optimizer_name,
-            parameters,
-            {"lr": self.learning_rate},
-        )
+        loss = self.loss
+        if isinstance(self.loss, str):
+            loss = build_loss(self.loss_name)
+            self.loss = loss
 
-        if self.scheduler_name:
-            scheduler = build_scheduler(self.scheduler_name, optimizer)
-        else:
-            scheduler = None
+        optimizer = self.optimizer
+        if isinstance(self.optimizer, str):
+            optimizer = build_optimizer(
+                self.optimizer_name,
+                parameters,
+                {"lr": self.learning_rate},
+            )
+            self.optimizer = optimizer
+
+        scheduler = self.scheduler
+        if isinstance(self.scheduler, str):
+            scheduler = build_scheduler(self.scheduler, optimizer)
+            self.scheduler = scheduler
 
         return loss, optimizer, scheduler

@@ -13,3 +13,6 @@
 # limitations under the License.
 
 from .hyperparameters import Hyperparameters
+from .losses import build_loss
+from .optimizers import build_optimizer
+from .schedulers import build_scheduler

@@ -50,6 +50,16 @@ class Net(pl.LightningModule):
         loss = self.__loss(y_pred, y_ref)
         accuracy = self.__accuracy(y_pred, y_ref)
 
+        self.__scheduler.step()
+
+        self.log(
+            "lr",
+            self.__optimizer.param_groups[0]["lr"],
+            on_step=True,
+            on_epoch=False,
+            prog_bar=True,
+            logger=True,
+        )
         self.log(
             "train_accuracy",
             accuracy,
@@ -115,10 +125,10 @@ class Net(pl.LightningModule):
         return [optimizer], [scheduler]
     ###
 
-    #### Used by pytorch_lightning
-    def lr_scheduler_step(self, scheduler, metric):
-        scheduler.step(epoch=self.current_epoch)
-    ###
+    # ### Used by pytorch_lightning
+    # def lr_scheduler_step(self, scheduler, metric):
+    #     scheduler.step(epoch=self.current_epoch)
+    # ###
 
     def save(self, path: str):
         from pathlib import Path

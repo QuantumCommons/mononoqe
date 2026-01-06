@@ -14,7 +14,18 @@
 
 import torch
 
-from mononoqe.training.optimizers.register import register, factory
+from mononoqe.utils import Factory
+
+
+__FACTORY = Factory("optimizer")
+
+def factory() -> Factory:
+    global __FACTORY
+    return __FACTORY
+
+def register(name: str):
+    return factory().register(name)
+
 
 # Here a list of already implemented optimizers
 # https://github.com/huggingface/pytorch-image-models/tree/main/timm/optim
@@ -29,10 +40,10 @@ SGDM_OPTIMIZER = "sgdm"  # SGD with mementum
 NAG_OPTIMIZER = "nag"  # Nesterov Accelerate Gradient
 
 
-def build_optimizer(name: str, model_parameters: dict, opt_params: dict):
+def build_optimizer(name: str, model_parameters: dict, opt_params: dict) -> torch.optim.Optimizer:
     opt_lambda, opt_default_params = factory()[name]()
     opt_default_params.update(opt_params)
-    optimizer = opt_lambda(model_parameters, **opt_default_params)
+    optimizer: torch.optim.Optimizer = opt_lambda(model_parameters, **opt_default_params)
 
     return optimizer
 

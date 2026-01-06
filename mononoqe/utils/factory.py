@@ -45,10 +45,14 @@ class Factory:
         return self.__bank.keys()
 
     def get(self, name: str) -> Any:
-        assert name
-        assert (
-            name in self.__bank
-        ), f"{name} is not registered in the factory '{self.__name}'"
+        assert name, f"name cannot be empty in factory '{self.__name}'"
+
+        if not name in self.__bank:
+            raise ValueError(
+                f"{name} is not registered in the factory '{self.__name}'"
+                + f". Available values are {list(self.keys())}"
+            )
+
         return self.__bank.get(name)
 
     def __getitem__(self, name: str) -> Any:

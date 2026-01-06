@@ -12,27 +12,39 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import timm.scheduler as sch
+import torch
+import torch.optim.lr_scheduler as lr_scheduler
 
-from mononoqe.training.schedulers.register import register, factory
+from mononoqe.utils import Factory
+
+
+__FACTORY = Factory("scheduler")
+
+def factory() -> Factory:
+    global __FACTORY
+    return __FACTORY
+
+def register(name: str):
+    return factory().register(name)
+
 
 # Here a list of already implemented scheduler:
-# https://github.com/huggingface/pytorch-image-models/tree/main/timm/scheduler
+# https://docs.pytorch.org/docs/2.9/optim.html#how-to-adjust-learning-rate
 
-TANH_SCHEDULER = "tanh"
+STEPLR_SCHEDULER = "steplr"
 POLYLR_SCHEDULER = "polylr"
 
 
-def build_scheduler(name: str, optimizer):
-    scheduler = factory()[name](optimizer)
+def build_scheduler(name: str, optimizer: torch.optim.Optimizer, **kwargs) -> lr_scheduler.LRScheduler:
+    scheduler: lr_scheduler.LRScheduler = factory()[name](optimizer, **kwargs)
     return scheduler
 
 
-@register(TANH_SCHEDULER)
-def tanh_scheduler(optimizer):
-    return sch.TanhLRScheduler(optimizer, t_initial=1)
+@register(STEPLR_SCHEDULER)
+def step_scheduler(optimizer, **kwargs):
+    return lr_scheduler.StepLR(optimizer, **kwargs)
 
 
 @register(POLYLR_SCHEDULER)
-def tanh_scheduler(optimizer):
-    return sch.PolyLRScheduler(optimizer, t_initial=1)
+def poly_scheduler(optimizer, **kwargs):
+    return lr_scheduler.PolynomialLR(optimizer, **kwargs)
