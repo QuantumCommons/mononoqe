@@ -13,24 +13,31 @@
 # limitations under the License.
 
 import os
+from typing import Callable
 
 import torch
 import pytorch_lightning as pl
 
+from mononoqe.models.hyperparameters import Hyperparameters
 from mononoqe.models.topologies import Topology
 
 
 class Net(pl.LightningModule):
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, topology: Topology, hyperparameters: Hyperparameters, accuracy: Callable = lambda x: 0.0, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        raise NotImplementedError("Misses attributes init, as well as minimizer's build method.")
+        self.__topology = topology
+        self.__sequence = topology.build_sequence()
 
+        self.__accuracy = accuracy
+
+        self.__hyperparameters = hyperparameters
         self.__loss = None
-        self.__accuracy = None
-        self.__topology = None
-        self.__sequence = None
+        self.__optimizer = None
+        self.__scheduler = None
+
+        raise NotImplementedError("Misses minimizer's build method.")
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         return self.__sequence(x)
@@ -90,15 +97,17 @@ class Net(pl.LightningModule):
 
     ### Used by pytorch_lightning
     def configure_optimizers(self):
-        if not self.__training_params:
+        if not self.__hyperparameters:
             return None
 
         # need to pass model.parameters() to create optimizer object
-        loss, optimizer, scheduler = self.__training_params.build_minimizers(
+        loss, optimizer, scheduler = self.__hyperparameters.build_minimizers(
             self.parameters()
         )
 
         self.__loss = loss
+        self.__optimizer = optimizer
+        self.__scheduler = scheduler
 
         if not scheduler:
             return optimizer
@@ -119,6 +128,7 @@ class Net(pl.LightningModule):
         Path(path).mkdir(parents=True, exist_ok=True)
 
         self.__topology.save(path)
+        
 
     @staticmethod
     def load(path: str) -> "Net":
@@ -132,7 +142,7 @@ class Net(pl.LightningModule):
 
         topology = Topology.load(path)
 
-        model = Net()
-        model.configure_topology(topology)
+        model = Net(topology)
+
 
         return model

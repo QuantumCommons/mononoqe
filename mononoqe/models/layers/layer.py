@@ -14,7 +14,7 @@
 
 from abc import ABC, abstractmethod
 
-from torch.nn import Module
+import torch
 
 
 class Layer(ABC):
@@ -39,16 +39,27 @@ class Layer(ABC):
         """
         pass
 
+    @classmethod
     @abstractmethod
-    def make(self, input_size: int) -> Module:
+    def from_dict(cls, d: dict) -> 'Layer':
+        """
+        Used to deserialize the layer.
+        """
+        pass
+
+    @abstractmethod
+    def make(self, input_size: int) -> torch.nn.Module:
         """
         Used to generate the torch Module corresponding to the layer.
         """
         pass
 
     @abstractmethod
-    def predict_size(self, input_size: int) -> int:
+    def predict_shape(self, input_size: tuple) -> tuple:
         """
         Used to predict the size of the output of the layer given the input size.
         """
         pass
+
+    def __call__(self, *args, **kwargs):
+        return self.make(*args, **kwargs)
