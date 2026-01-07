@@ -12,6 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .layer import Layer
+from .layer import Layer, predict_sequence_shape, register
 
 LayerType = Layer | str | dict

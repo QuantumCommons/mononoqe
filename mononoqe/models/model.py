@@ -18,7 +18,7 @@ from typing import Callable
 import torch
 import pytorch_lightning as pl
 
-from mononoqe.models.hyperparameters import Hyperparameters
+from mononoqe.hyperparameters import Hyperparameters
 from mononoqe.models.topologies import Topology
 
 

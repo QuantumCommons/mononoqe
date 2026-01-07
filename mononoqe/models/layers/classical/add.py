@@ -15,7 +15,7 @@
 from typing import Iterable
 from torch.nn import Module
 
-from mononoqe.models.layers import Layer
+from mononoqe.models.layers import Layer, LayerType, predict_sequence_shape, register
 from mononoqe.models.topologies import Topology
 
 
@@ -36,37 +36,25 @@ class AddModule(Module):
         return res
 
 
-# @register
+@register
 class Add(Layer):
     name = "add"
 
-    def __init__(self, sequences: list[list]):
-        self.sequences = sequences
+    sequences: list[list[LayerType]]
 
-    def from_dict(cls, d):
-        assert d["name"] == cls.name, f"Name mismatch: expected {cls.name}, got {d['name']}"
-        return cls(d["sequences"])
+    def make(self, input_shape: tuple) -> Module:
+        assert self.sequences, "sequences has to be a non empty list"
 
-    @classmethod
-    def to_dict(cls, sequences: list[list]) -> dict:
-        return dict(name=cls.name, sequences=sequences)
+        built_sequences: list[Module] = []
+        for sequence in self.sequences:
 
-    @classmethod
-    def make(cls, input_size, sequences, **kwargs) -> Module:
-        assert sequences, "sequences has to be a non empty list"
-
-        built_sequences = []
-        for sequence in sequences:
-            built_sequence, output_size = build_topology_from_list(
-                sequence=sequence,
-                input_size=input_size,
-            )
+            topology = Topology(sequence)
+            built_sequence: Module = topology.build_sequence(input_shape=input_shape)
             built_sequences.append(built_sequence)
 
         # output shape is supposed to be the same for each sub sequence
         return AddModule(built_sequences)
 
-    @classmethod
-    def predict_size(cls, input_size, sequences, **kwargs) -> tuple:
-        assert sequences, "sequences has to be a non empty list"
-        return predict_size(sequence=sequences[0], input_size=input_size)
+    def predict_shape(self, input_shape: tuple) -> tuple:
+        assert self.sequences, "sequences has to be a non empty list"
+        return predict_sequence_shape(sequence=self.sequences[0], input_shape=input_shape)

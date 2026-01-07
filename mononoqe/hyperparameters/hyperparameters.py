@@ -18,7 +18,7 @@ from typing import Callable, Iterator, Optional, Union
 
 import torch
 
-from mononoqe.models.hyperparameters import build_loss, build_optimizer, build_scheduler
+from mononoqe.hyperparameters import build_loss, build_optimizer, build_scheduler
 
 
 @dataclass_json
